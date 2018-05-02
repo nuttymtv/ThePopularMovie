@@ -1,7 +1,9 @@
 package com.example.android.thepopularmovie;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieListAdapter.MovieListAdapterOnClickHandler {
 
     @BindView(R.id.recycler_view_movie_list)
     RecyclerView mMovieListView;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mMovieListView.setLayoutManager(new GridLayoutManager(this, numberOfCol));
-        mMovieListAdapter = new MovieListAdapter();
+        mMovieListAdapter = new MovieListAdapter(this);
 
         mMovieListView.setAdapter(mMovieListAdapter);
         loadMovieList(SORT_ORDER_MOST_POPULAR);
@@ -88,6 +90,16 @@ public class MainActivity extends AppCompatActivity {
     private void loadMovieList(String sortOrder){
         new FetchMovieListTask().execute(sortOrder);
     }
+
+    @Override
+    public void onMovieListItemClick(MovieModel movie) {
+        Context context = this;
+        Class destinationClass = MovieDetail.class;
+        Intent intentToStartMovieDetail = new Intent( context , destinationClass);
+        intentToStartMovieDetail.putExtra("movie_object", movie);
+        startActivity(intentToStartMovieDetail);
+    }
+
 
 
     public class FetchMovieListTask extends AsyncTask<String,Void,List<MovieModel>>{

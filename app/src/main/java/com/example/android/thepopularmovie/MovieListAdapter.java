@@ -21,9 +21,15 @@ import butterknife.ButterKnife;
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListAdapterViewHolder> {
 
     private List<MovieModel> mMovieDataList;
+    private final MovieListAdapterOnClickHandler mItemClickHandler;
 
-    public MovieListAdapter(){
+    public MovieListAdapter(MovieListAdapterOnClickHandler clickHandler){
+        this.mItemClickHandler = clickHandler;
+    }
 
+
+    public interface MovieListAdapterOnClickHandler{
+        void onMovieListItemClick (MovieModel movie);
     }
 
     @NonNull
@@ -55,7 +61,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     }
 
 
-    public class MovieListAdapterViewHolder extends RecyclerView.ViewHolder{
+    public class MovieListAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.iv_movie_poster)
         ImageView imageViewMoviePoster;
 
@@ -63,6 +69,15 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         public MovieListAdapterViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int itemClickedIndex = getAdapterPosition();
+            MovieModel movie = mMovieDataList.get(itemClickedIndex);
+            mItemClickHandler.onMovieListItemClick(movie);
+
         }
     }
 
