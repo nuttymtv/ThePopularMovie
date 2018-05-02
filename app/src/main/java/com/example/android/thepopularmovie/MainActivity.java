@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     public boolean onOptionsItemSelected(MenuItem item) {
         int selectedMenuItem = item.getItemId();
         Context context = MainActivity.this;
-
         if (selectedMenuItem == R.id.sort_by_popular){
             String msg = "Sort by popular";
             Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
@@ -100,6 +100,26 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         startActivity(intentToStartMovieDetail);
     }
 
+    private void showMovieListData (){
+        mMovieListView.setVisibility(View.VISIBLE);
+        mTvError.setVisibility(View.INVISIBLE);
+    }
+
+    private  void showErrorMessage () {
+        mMovieListView.setVisibility(View.INVISIBLE);
+        mTvError.setVisibility(View.VISIBLE);
+    }
+
+    private void showLoadingIndicator () {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mMovieListView.setVisibility(View.INVISIBLE);
+    }
+
+    private void hideLoadingIndicator () {
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mMovieListView.setVisibility(View.VISIBLE);
+    }
+
 
 
     public class FetchMovieListTask extends AsyncTask<String,Void,List<MovieModel>>{
@@ -107,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            showLoadingIndicator();
         }
 
         @Override
@@ -126,8 +147,11 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
         @Override
         protected void onPostExecute(List<MovieModel> movieList) {
+            hideLoadingIndicator();
             if (movieList != null){
                 mMovieListAdapter.setMovieData(movieList);
+            }else{
+                showErrorMessage();
             }
         }
     }
