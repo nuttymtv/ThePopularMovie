@@ -19,7 +19,7 @@ public class MovieApiService {
     private static final String TOP_RATED_LIST = "top_rated";
     private static final String API_KEY_PARAM = "api_key";
 
-    private static final String key = ""; // ** API KEY goes here **
+    private static final String key = "7f8a4a1b19febf2b4c14e0e9881b8a35"; // ** API KEY goes here **
     private static final String IMG_BASE_URL = "http://image.tmdb.org/t/p/";
 
 

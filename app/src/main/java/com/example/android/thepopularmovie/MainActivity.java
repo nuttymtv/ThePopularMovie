@@ -17,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.thepopularmovie.Service.MovieApiService;
+import com.example.android.thepopularmovie.Service.MovieListAsyncTask;
 import com.example.android.thepopularmovie.Utils.JsonUtils;
+import com.example.android.thepopularmovie.interfaces.CallBack;
 import com.example.android.thepopularmovie.model.MovieModel;
 
 import java.net.URL;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
     private MovieListAdapter mMovieListAdapter;
     private List<MovieModel> moviesList;
+    private MovieListAsyncTask fetchMovieListTask;
     private static final String SORT_ORDER_TOP_RATED =  "top_rated";
     private static final String SORT_ORDER_MOST_POPULAR =  "popular";
 
@@ -88,7 +91,23 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     }
 
     private void loadMovieList(String sortOrder){
-        new FetchMovieListTask().execute(sortOrder);
+        showLoadingIndicator();
+
+        fetchMovieListTask = new MovieListAsyncTask(new CallBack() {
+            @Override
+            public void onSuccess(Object obj) {
+                hideLoadingIndicator();
+                moviesList = (List<MovieModel>) obj;
+                mMovieListAdapter.setMovieData(moviesList);
+            }
+
+            @Override
+            public void onFailer(Exception e) {
+                hideLoadingIndicator();
+                showErrorMessage();
+            }
+        });
+        fetchMovieListTask.execute(sortOrder);
     }
 
     @Override
@@ -118,41 +137,5 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private void hideLoadingIndicator () {
         mProgressBar.setVisibility(View.INVISIBLE);
         mMovieListView.setVisibility(View.VISIBLE);
-    }
-
-
-
-    public class FetchMovieListTask extends AsyncTask<String,Void,List<MovieModel>>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            showLoadingIndicator();
-        }
-
-        @Override
-        protected List<MovieModel> doInBackground(String... strings) {
-            String sortOrder = strings[0];
-            URL movieUrl = MovieApiService.buildUrl(sortOrder);
-
-            try {
-                String jsonRes = MovieApiService.getResponseFromHttpUrl(movieUrl);
-                moviesList = JsonUtils.parseDataToList(jsonRes);
-                return moviesList;
-            }catch (Exception e){
-                e.printStackTrace();
-                return  null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(List<MovieModel> movieList) {
-            hideLoadingIndicator();
-            if (movieList != null){
-                mMovieListAdapter.setMovieData(movieList);
-            }else{
-                showErrorMessage();
-            }
-        }
     }
 }

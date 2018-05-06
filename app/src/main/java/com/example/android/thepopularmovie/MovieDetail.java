@@ -10,8 +10,6 @@ import com.example.android.thepopularmovie.Service.MovieApiService;
 import com.example.android.thepopularmovie.model.MovieModel;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

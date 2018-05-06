@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -8,76 +8,82 @@
     android:layout_height="match_parent"
     tools:context=".MovieDetail">
 
-    <TextView
-        android:id="@+id/tv_movie_title"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="30dp"
-        android:text="this is a movie title"
-        android:textColor="@color/white"
-        android:background="@android:color/holo_blue_dark"
-        android:textSize="35sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/iv_movie_poster_detail"
-        android:layout_width="153dp"
-        android:layout_height="222dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+        <TextView
+            android:id="@+id/tv_movie_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="this is a breif descrption of the movie "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iv_movie_poster_detail"
+            app:layout_constraintTop_toBottomOf="@+id/iv_movie_poster_detail" />
 
-    <TextView
-        android:id="@+id/tv_movie_release_date"
-        android:layout_width="162dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:text="this is movie release date"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_movie_poster_detail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+        <TextView
+            android:id="@+id/tv_movie_release_date"
+            android:layout_width="162dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="56dp"
+            android:text="this is movie release date"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/iv_movie_poster_detail"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
 
-    <TextView
-        android:id="@+id/tv_movie_rating"
-        android:layout_width="155dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:text="this is movie rating "
-        app:layout_constraintEnd_toEndOf="@+id/tv_movie_release_date"
-        app:layout_constraintHorizontal_bias="0.888"
-        app:layout_constraintStart_toStartOf="@+id/tv_movie_release_date"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movie_release_date" />
+        <TextView
+            android:id="@+id/tv_movie_rating"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="this is movie rating "
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/iv_movie_poster_detail"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_release_date" />
+
+        <TextView
+            android:id="@+id/tv_movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:gravity="center"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="30dp"
+            android:text="this is a movie title"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_movie_poster_detail"
+            android:layout_width="153dp"
+            android:layout_height="222dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+    </android.support.constraint.ConstraintLayout>
 
 
-    <TextView
-        android:id="@+id/tv_movie_overview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:text="this is a breif descrption of the movie "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_movie_poster_detail" />
 
 
-</android.support.constraint.ConstraintLayout>
+</ScrollView>
