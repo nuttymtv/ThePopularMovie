@@ -10,6 +10,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:contentPadding="10dp"
         app:cardUseCompatPadding="true"
         app:cardBackgroundColor="#512DA8"
         app:cardCornerRadius="10dp"
@@ -18,18 +19,19 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+           >
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="39dp"
                 android:layout_height="47dp"
                 android:contentDescription="play_button"
-                app:layout_constraintBottom_toTopOf="@id/tv_trailer_name"
+                app:layout_constraintBottom_toTopOf="@+id/tv_trailer_name"
                 app:layout_constraintEnd_toStartOf="@+id/tv_trailer_name"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_trailer_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_trailer_name"
+                app:layout_constraintVertical_bias="0.515"
                 app:srcCompat="@drawable/ic_play_circle_filled_white_24dp" />
 
             <TextView
@@ -51,12 +53,12 @@
                 android:id="@+id/imageView2"
                 android:layout_width="2dp"
                 android:layout_height="36dp"
+                android:background="#FF5722"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_trailer_site"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tv_trailer_name"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="#FF5722"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_trailer_site"
@@ -76,12 +78,12 @@
                 android:id="@+id/imageView3"
                 android:layout_width="2dp"
                 android:layout_height="36dp"
+                android:background="#FF5722"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_video_type"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tv_trailer_site"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="#FF5722" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_video_type"
