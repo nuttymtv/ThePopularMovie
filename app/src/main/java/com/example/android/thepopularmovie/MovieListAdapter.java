@@ -7,10 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.example.android.thepopularmovie.Service.MovieApiService;
-import com.example.android.thepopularmovie.model.MovieModel;
+import com.example.android.thepopularmovie.Models.MovieModel.Movie;
+import com.example.android.thepopularmovie.Utils.ApiUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,7 +19,7 @@ import butterknife.ButterKnife;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListAdapterViewHolder> {
 
-    private List<MovieModel> mMovieDataList;
+    private List<Movie> mMovieDataList;
     private final MovieListAdapterOnClickHandler mItemClickHandler;
 
     public MovieListAdapter(MovieListAdapterOnClickHandler clickHandler){
@@ -29,7 +28,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
 
     public interface MovieListAdapterOnClickHandler{
-        void onMovieListItemClick (MovieModel movie);
+        void onMovieListItemClick (Movie movie);
     }
 
     @NonNull
@@ -44,9 +43,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     @Override
     public void onBindViewHolder(@NonNull MovieListAdapterViewHolder holder, int position) {
-        MovieModel movieModelData = mMovieDataList.get(position);
-        String posterPath = movieModelData.getImage();
-        String imgUrlString = MovieApiService.getImgUrlWithSizeProvided(posterPath,"500");
+        Movie movie = mMovieDataList.get(position);
+        String posterPath = movie.getPosterPath();
+        String imgUrlString = ApiUtils.getImgUrlWithSizeProvided(posterPath,"500");
 
         Picasso.get()
                 .load(imgUrlString)
@@ -75,14 +74,15 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         @Override
         public void onClick(View v) {
             int itemClickedIndex = getAdapterPosition();
-            MovieModel movie = mMovieDataList.get(itemClickedIndex);
+            Movie movie = mMovieDataList.get(itemClickedIndex);
             mItemClickHandler.onMovieListItemClick(movie);
 
         }
     }
 
-    public void setMovieData(List<MovieModel> movieData){
-        this.mMovieDataList = movieData;
+    public void setMovieData(List<Movie> movieData, int page){
+        if (page == 1) this.mMovieDataList = movieData;
+        else if (mMovieDataList.size() != 0) mMovieDataList.addAll(movieData);
         notifyDataSetChanged();
     }
 
