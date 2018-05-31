@@ -1,81 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="39dp"
-        android:layout_height="47dp"
-        android:contentDescription="play_button"
-        app:layout_constraintBottom_toTopOf="@id/tv_trailer_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_trailer_name"
-        app:srcCompat="@drawable/ic_play_circle_filled_black_24dp"
-        tools:layout_editor_absoluteX="0dp" />
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="#512DA8"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/tv_trailer_name"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Video Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="2dp"
-        android:layout_height="36dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_trailer_site"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_trailer_name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/darker_gray" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="39dp"
+                android:layout_height="47dp"
+                android:contentDescription="play_button"
+                app:layout_constraintBottom_toTopOf="@id/tv_trailer_name"
+                app:layout_constraintEnd_toStartOf="@+id/tv_trailer_name"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_trailer_name"
+                app:srcCompat="@drawable/ic_play_circle_filled_white_24dp" />
 
-    <TextView
-        android:id="@+id/tv_trailer_site"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Site"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_trailer_name"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Video Name"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="2dp"
-        android:layout_height="36dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_video_type"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_trailer_site"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/darker_gray" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="2dp"
+                android:layout_height="36dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_trailer_site"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_trailer_name"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="#FF5722"/>
 
-    <TextView
-        android:id="@+id/tv_video_type"
-        android:layout_width="79dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Type"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_trailer_site"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Site"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="2dp"
+                android:layout_height="36dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_video_type"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_trailer_site"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="#FF5722" />
+
+            <TextView
+                android:id="@+id/tv_video_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Type"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

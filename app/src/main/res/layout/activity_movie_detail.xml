@@ -86,13 +86,13 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_movie_overview"
-            app:layout_constraintStart_toStartOf="@+id/tv_movie_overview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_overview"
             app:srcCompat="@android:color/darker_gray" />
 
