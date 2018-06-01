@@ -66,7 +66,7 @@ public class MovieDetail extends AppCompatActivity implements MovieTrailerListAd
     }
 
     private void populateUI () {
-        String posterPath = ApiUtils.getImgUrlWithSizeProvided(movie.getPosterPath(),"185");
+        String posterPath = ApiUtils.getImgUrlWithSizeProvided(movie.getPosterPath(),"780");
         String releaseDate = movie.getReleaseDate();
         String rating = movie.getVoteAverage() + " / 10";
         setPosterImage(posterPath);
@@ -84,7 +84,6 @@ public class MovieDetail extends AppCompatActivity implements MovieTrailerListAd
                     @Override
                     public void onResponse(Call<MovieTrailerResponse> call, Response<MovieTrailerResponse> response) {
                         if (response.isSuccessful()){
-                            // TODO: Populate custom list adaptor
                             movieTrailerListAdapter.setData(response.body().getMovieTrailers());
                         }
                     }
