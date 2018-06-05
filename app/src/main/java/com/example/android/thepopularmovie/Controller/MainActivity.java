@@ -2,6 +2,7 @@ package com.example.android.thepopularmovie.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.thepopularmovie.Db.MovieDatabase;
+import com.example.android.thepopularmovie.Db.Table.FavoriteMovieTableModel;
 import com.example.android.thepopularmovie.EndlessRecyclerViewScrollListener;
 import com.example.android.thepopularmovie.Models.MovieModel.Movie;
 import com.example.android.thepopularmovie.MovieListAdapter;
@@ -21,6 +24,8 @@ import com.example.android.thepopularmovie.R;
 import com.example.android.thepopularmovie.Service.MovieApiServiceInterface;
 import com.example.android.thepopularmovie.Utils.ApiUtils;
 import com.example.android.thepopularmovie.Models.MovieModel.MovieResponse;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
     private MovieListAdapter mMovieListAdapter;
     private MovieApiServiceInterface mMovieService;
-    private EndlessRecyclerViewScrollListener scrollListener;
     private String currentSorting;
+    private static List<FavoriteMovieTableModel> mFavoriteMovieTableModels;
     private static final String SORT_ORDER_TOP_RATED =  "top_rated";
     private static final String SORT_ORDER_MOST_POPULAR =  "popular";
 
@@ -64,10 +69,10 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
         mMovieListView.setAdapter(mMovieListAdapter);
 
-        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+        EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                loadMovieList(page,currentSorting);
+                loadMovieList(page, currentSorting);
             }
 
         };
@@ -130,12 +135,37 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        getAllFavoiteMovie(this);
+
+    }
+
+    @Override
     public void onMovieListItemClick(Movie movie) {
         Context context = this;
         Class destinationClass = MovieDetail.class;
         Intent intentToStartMovieDetail = new Intent( context , destinationClass);
         intentToStartMovieDetail.putExtra("movie_object", movie);
         startActivity(intentToStartMovieDetail);
+    }
+
+    private static void getAllFavoiteMovie(Context context){
+        final MovieDatabase movieDatabase = MovieDatabase.getInstance(context);
+
+        new AsyncTask<Void, Void, List<FavoriteMovieTableModel>>() {
+            @Override
+            protected List<FavoriteMovieTableModel> doInBackground(Void... voids) {
+                return movieDatabase.favoriteMovieDao().getFavoriteMovieList();
+            }
+
+            @Override
+            protected void onPostExecute(List<FavoriteMovieTableModel> favoriteMovieTableModels) {
+                super.onPostExecute(favoriteMovieTableModels);
+                mFavoriteMovieTableModels = favoriteMovieTableModels;
+
+            }
+        }.execute();
     }
 
     private void showMovieListData (){

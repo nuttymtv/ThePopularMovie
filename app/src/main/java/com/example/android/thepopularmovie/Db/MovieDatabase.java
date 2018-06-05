@@ -8,8 +8,29 @@ import android.content.Context;
 import com.example.android.thepopularmovie.Db.Dao.FavoriteMovieDao;
 import com.example.android.thepopularmovie.Db.Table.FavoriteMovieTableModel;
 
-@Database(entities = {FavoriteMovieTableModel.class},version = 1)
+
+@Database(entities = {FavoriteMovieTableModel.class},version = 1,exportSchema = false)
 public abstract class MovieDatabase extends RoomDatabase {
     private static MovieDatabase INSTANCE;
+    private static  final Object LOCK = new Object();
+    public static final String DB_NAME = "movie_database";
+
     public abstract FavoriteMovieDao favoriteMovieDao();
+
+    public static MovieDatabase getInstance(Context context){
+        if (INSTANCE == null){
+            synchronized (LOCK){
+                INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                        MovieDatabase.class , MovieDatabase.DB_NAME)
+                .build();
+            }
+        }
+        return INSTANCE;
+    }
+
+    public static void  destroyInstance (){
+        INSTANCE = null;
+    }
+
+
 }

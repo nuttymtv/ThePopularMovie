@@ -2,6 +2,7 @@ package com.example.android.thepopularmovie.Db.Table;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.example.android.thepopularmovie.Models.MovieModel.Movie;
@@ -10,8 +11,9 @@ import java.util.List;
 
 @Entity
 public class FavoriteMovieTableModel {
-    public FavoriteMovieTableModel(Movie movie) {
 
+    @Ignore
+    public FavoriteMovieTableModel(Movie movie) {
         this.voteCount = movie.getVoteCount();
         this.voteAverage = movie.getVoteAverage();
         this.movie_id = movie.getId();
@@ -20,41 +22,40 @@ public class FavoriteMovieTableModel {
         this.posterPath = movie.getPosterPath();
         this.originalLanguage = movie.getOriginalLanguage();
         this.originalTitle = movie.getOriginalTitle();
-        this.genreIds = movie.getGenreIds();
         this.backdropPath = movie.getBackdropPath();
         this.adult = movie.getAdult();
         this.overview = movie.getOverview();
         this.releaseDate = movie.getReleaseDate();
     }
 
+    public FavoriteMovieTableModel(){}
+
     @ColumnInfo
     @PrimaryKey(autoGenerate = true)
 
-    Long id;
+    public Long id;
     @ColumnInfo
-    Integer voteCount;
+    public Integer voteCount;
     @ColumnInfo
-    Float voteAverage;
+    public Float voteAverage;
     @ColumnInfo
-    Integer movie_id;
+    public Integer movie_id;
     @ColumnInfo
-    String title;
+    public String title;
     @ColumnInfo
-    Double popularity;
+    public Double popularity;
     @ColumnInfo
-    String posterPath;
+    public String posterPath;
     @ColumnInfo
-    String originalLanguage;
+    public String originalLanguage;
     @ColumnInfo
-    String originalTitle;
+    public String originalTitle;
     @ColumnInfo
-    List<Integer> genreIds = null;
+    public String backdropPath;
     @ColumnInfo
-    String backdropPath;
+    public Boolean adult;
     @ColumnInfo
-    Boolean adult;
+    public String overview;
     @ColumnInfo
-    String overview;
-    @ColumnInfo
-    String releaseDate;
+    public String releaseDate;
 }
