@@ -142,7 +142,7 @@ public class MovieDetail extends AppCompatActivity implements MovieTrailerListAd
         private WeakReference<MovieDetail> activityRef;
 
         CheckFavoriteMovieState (MovieDetail context){
-            activityRef = new WeakReference<MovieDetail>(context);
+            activityRef = new WeakReference<>(context);
             movieDatabase = MovieDatabase.getInstance(activityRef.get());
         }
 
@@ -206,7 +206,6 @@ public class MovieDetail extends AppCompatActivity implements MovieTrailerListAd
 
     @Override
     public void onTrailerListItemClick(MovieTrailer trailer) {
-
         //launch Youtube app(if installed) otherwise launch youtube website
         launchYoutubeOrWebpage(trailer);
     }

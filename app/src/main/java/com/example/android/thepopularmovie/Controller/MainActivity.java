@@ -25,6 +25,7 @@ import com.example.android.thepopularmovie.Service.MovieApiServiceInterface;
 import com.example.android.thepopularmovie.Utils.ApiUtils;
 import com.example.android.thepopularmovie.Models.MovieModel.MovieResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private static List<FavoriteMovieTableModel> mFavoriteMovieTableModels;
     private static final String SORT_ORDER_TOP_RATED =  "top_rated";
     private static final String SORT_ORDER_MOST_POPULAR =  "popular";
+    private static final String SORT_ORDER_FAVORITE =  "favorite";
+
 
 
     /**
@@ -107,6 +110,12 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
             String msg = "Sort by Top Rated";
             Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
             loadMovieList(page, currentSorting);
+        } else if (selectedMenuItem == R.id.sort_by_favorite) {
+            currentSorting = SORT_ORDER_FAVORITE;
+            String msg = "Sort by Favorite";
+            if (mFavoriteMovieTableModels != null){
+                mMovieListAdapter.setMovieData(mapFavoriteMovieDbModalToMovieModel(mFavoriteMovieTableModels), 1);
+            }
         }
 
 
@@ -163,9 +172,16 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
             protected void onPostExecute(List<FavoriteMovieTableModel> favoriteMovieTableModels) {
                 super.onPostExecute(favoriteMovieTableModels);
                 mFavoriteMovieTableModels = favoriteMovieTableModels;
-
             }
         }.execute();
+    }
+
+    private List<Movie> mapFavoriteMovieDbModalToMovieModel(List<FavoriteMovieTableModel> favoriteMovieTableModels){
+        List<Movie> movies = new ArrayList<>();
+        for(FavoriteMovieTableModel item : favoriteMovieTableModels){
+            movies.add(new Movie(item));
+        }
+        return movies;
     }
 
     private void showMovieListData (){

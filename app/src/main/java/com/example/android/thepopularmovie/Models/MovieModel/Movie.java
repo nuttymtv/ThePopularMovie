@@ -3,6 +3,7 @@ package com.example.android.thepopularmovie.Models.MovieModel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.android.thepopularmovie.Db.Table.FavoriteMovieTableModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -84,6 +85,23 @@ public class Movie implements Parcelable{
         adult = tmpAdult == 0 ? null : tmpAdult == 1;
         overview = in.readString();
         releaseDate = in.readString();
+    }
+
+    public Movie(FavoriteMovieTableModel favoriteMovieTableModel){
+        this.adult = favoriteMovieTableModel.adult;
+        this.backdropPath = favoriteMovieTableModel.backdropPath;
+        this.genreIds = null;
+        this.id = favoriteMovieTableModel.movie_id;
+        this.originalLanguage = favoriteMovieTableModel.originalLanguage;
+        this.originalTitle = favoriteMovieTableModel.originalTitle;
+        this.overview = favoriteMovieTableModel.overview;
+        this.popularity = favoriteMovieTableModel.popularity;
+        this.posterPath = favoriteMovieTableModel.posterPath;
+        this.releaseDate = favoriteMovieTableModel.releaseDate;
+        this.title = favoriteMovieTableModel.title;
+        this.video = false;
+        this.voteAverage = favoriteMovieTableModel.voteAverage;
+        this.voteCount = favoriteMovieTableModel.voteCount;
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
