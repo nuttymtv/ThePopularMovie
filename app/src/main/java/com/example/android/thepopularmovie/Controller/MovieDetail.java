@@ -16,8 +16,10 @@ import android.widget.ToggleButton;
 import com.example.android.thepopularmovie.Db.MovieDatabase;
 import com.example.android.thepopularmovie.Db.Table.FavoriteMovieTableModel;
 import com.example.android.thepopularmovie.Models.MovieModel.Movie;
+import com.example.android.thepopularmovie.Models.MovieReviewModel.MovieReviewResponse;
 import com.example.android.thepopularmovie.Models.MovieTrailerModel.MovieTrailer;
 import com.example.android.thepopularmovie.Models.MovieTrailerModel.MovieTrailerResponse;
+import com.example.android.thepopularmovie.MovieReviewListAdapter;
 import com.example.android.thepopularmovie.MovieTrailerListAdapter;
 import com.example.android.thepopularmovie.R;
 import com.example.android.thepopularmovie.Service.MovieApiServiceInterface;
@@ -48,12 +50,15 @@ public class MovieDetail extends AppCompatActivity implements MovieTrailerListAd
     TextView mMovieOverview;
     @BindView(R.id.recycler_view_movie_trailer)
     RecyclerView rvMovieTrailer;
+    @BindView(R.id.recycler_view_movie_review)
+    RecyclerView rvMovieReview;
     @BindView(R.id.toggle_button_add_fav_movie)
     ToggleButton tbAddFavMovie;
 
     private Movie movie;
     private MovieApiServiceInterface mMovieService;
     private MovieTrailerListAdapter movieTrailerListAdapter;
+    private MovieReviewListAdapter movieReviewListAdapter;
     private FavoriteMovieTableModel mFavMovieTableModel;
     private Context context;
 
@@ -65,9 +70,12 @@ public class MovieDetail extends AppCompatActivity implements MovieTrailerListAd
         ButterKnife.bind(this);
         context = getApplicationContext();
         mMovieService = ApiUtils.getApiClient();
+        movieReviewListAdapter = new MovieReviewListAdapter();
         movieTrailerListAdapter = new MovieTrailerListAdapter(this);
         rvMovieTrailer.setAdapter(movieTrailerListAdapter);
         rvMovieTrailer.setLayoutManager(new LinearLayoutManager(this));
+        rvMovieReview.setAdapter(movieReviewListAdapter);
+        rvMovieReview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
         if (parentIntent.hasExtra(PARENT_INTENT_PARCEL_NAME)){
             movie = parentIntent.getParcelableExtra(PARENT_INTENT_PARCEL_NAME);
             mFavMovieTableModel  = new FavoriteMovieTableModel(movie);
@@ -99,12 +107,15 @@ public class MovieDetail extends AppCompatActivity implements MovieTrailerListAd
         String rating = movie.getVoteAverage() + " / 10";
         setPosterImage(posterPath);
         loadMovieTrailer(movie.getId());
+        loadMoviewReview(movie.getId());
         mMovieTitle.setText(movie.getTitle());
         mMovieReleaseDate.setText(releaseDate);
         mMovieRating.setText(rating);
         mMovieOverview.setText(movie.getOverview());
         setToggleButtonStyle();
     }
+
+
 
 
     private void setToggleButtonStyle(){
@@ -187,6 +198,23 @@ public class MovieDetail extends AppCompatActivity implements MovieTrailerListAd
                     }
                 }
         );
+    }
+
+    private void loadMoviewReview(int id) {
+        mMovieService.getMovieReview(Integer.toString(id)).enqueue(new Callback<MovieReviewResponse>() {
+            @Override
+            public void onResponse(Call<MovieReviewResponse> call, Response<MovieReviewResponse> response) {
+                if (response.isSuccessful()){
+                    movieReviewListAdapter.setData(response.body().getResults());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieReviewResponse> call, Throwable t) {
+
+            }
+        });
+
     }
 
 

@@ -2,6 +2,7 @@ package com.example.android.thepopularmovie.Service;
 
 
 import com.example.android.thepopularmovie.Models.MovieModel.MovieResponse;
+import com.example.android.thepopularmovie.Models.MovieReviewModel.MovieReviewResponse;
 import com.example.android.thepopularmovie.Models.MovieTrailerModel.MovieTrailerResponse;
 
 import retrofit2.Call;
@@ -19,4 +20,7 @@ public interface MovieApiServiceInterface {
 
     @GET("{id}/videos")
     Call<MovieTrailerResponse> getMovieTrailer(@Path("id") String movieId);
+
+    @GET("{id}/reviews")
+    Call<MovieReviewResponse> getMovieReview(@Path("id") String movieId);
 }
