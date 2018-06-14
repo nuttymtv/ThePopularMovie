@@ -1,13 +1,9 @@
-package com.example.android.thepopularmovie.Utils;
+package com.example.android.thepopularmovie.utils;
 
 import android.net.Uri;
 
-import com.example.android.thepopularmovie.Service.Client.ApiClient;
-import com.example.android.thepopularmovie.Service.MovieApiServiceInterface;
-
-import java.net.URL;
-
-import retrofit2.Retrofit;
+import com.example.android.thepopularmovie.service.client.ApiClient;
+import com.example.android.thepopularmovie.service.MovieApiServiceInterface;
 
 public class ApiUtils {
     private static final String BASE_URL = "https://api.themoviedb.org/3/movie/";

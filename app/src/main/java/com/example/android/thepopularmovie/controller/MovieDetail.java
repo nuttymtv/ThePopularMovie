@@ -1,4 +1,4 @@
-package com.example.android.thepopularmovie.Controller;
+package com.example.android.thepopularmovie.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,17 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.example.android.thepopularmovie.Db.MovieDatabase;
-import com.example.android.thepopularmovie.Db.Table.FavoriteMovieTableModel;
-import com.example.android.thepopularmovie.Models.MovieModel.Movie;
-import com.example.android.thepopularmovie.Models.MovieReviewModel.MovieReviewResponse;
-import com.example.android.thepopularmovie.Models.MovieTrailerModel.MovieTrailer;
-import com.example.android.thepopularmovie.Models.MovieTrailerModel.MovieTrailerResponse;
+import com.example.android.thepopularmovie.db.MovieDatabase;
+import com.example.android.thepopularmovie.db.table.FavoriteMovieTableModel;
+import com.example.android.thepopularmovie.models.movie.Movie;
+import com.example.android.thepopularmovie.models.movie_review.MovieReviewResponse;
+import com.example.android.thepopularmovie.models.movie_trailer.MovieTrailer;
+import com.example.android.thepopularmovie.models.movie_trailer.MovieTrailerResponse;
 import com.example.android.thepopularmovie.MovieReviewListAdapter;
 import com.example.android.thepopularmovie.MovieTrailerListAdapter;
 import com.example.android.thepopularmovie.R;
-import com.example.android.thepopularmovie.Service.MovieApiServiceInterface;
-import com.example.android.thepopularmovie.Utils.ApiUtils;
+import com.example.android.thepopularmovie.service.MovieApiServiceInterface;
+import com.example.android.thepopularmovie.utils.ApiUtils;
 import com.squareup.picasso.Picasso;
 
 

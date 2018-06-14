@@ -1,8 +1,11 @@
-package com.example.android.thepopularmovie.Controller;
+package com.example.android.thepopularmovie.controller;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,15 +18,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.thepopularmovie.Db.MovieDatabase;
-import com.example.android.thepopularmovie.Db.Table.FavoriteMovieTableModel;
+import com.example.android.thepopularmovie.db.MovieDatabase;
+import com.example.android.thepopularmovie.db.table.FavoriteMovieTableModel;
 import com.example.android.thepopularmovie.EndlessRecyclerViewScrollListener;
-import com.example.android.thepopularmovie.Models.MovieModel.Movie;
+import com.example.android.thepopularmovie.models.movie.Movie;
 import com.example.android.thepopularmovie.MovieListAdapter;
 import com.example.android.thepopularmovie.R;
-import com.example.android.thepopularmovie.Service.MovieApiServiceInterface;
-import com.example.android.thepopularmovie.Utils.ApiUtils;
-import com.example.android.thepopularmovie.Models.MovieModel.MovieResponse;
+import com.example.android.thepopularmovie.models.movie.MovieViewModel;
+import com.example.android.thepopularmovie.service.MovieApiServiceInterface;
+import com.example.android.thepopularmovie.utils.ApiUtils;
+import com.example.android.thepopularmovie.models.movie.MovieResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private static final String SORT_ORDER_TOP_RATED =  "top_rated";
     private static final String SORT_ORDER_MOST_POPULAR =  "popular";
     private static final String SORT_ORDER_FAVORITE =  "favorite";
+    private static final String TAG = MainActivity.class.getSimpleName();
 
 
 
@@ -82,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
         mMovieListView.addOnScrollListener(scrollListener);
         loadMovieList(1,currentSorting);
-
+        setUpViewModel();
     }
 
     /**
@@ -143,12 +148,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getAllFavoiteMovie(this);
-
-    }
 
     @Override
     public void onMovieListItemClick(Movie movie) {
@@ -159,21 +158,19 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         startActivity(intentToStartMovieDetail);
     }
 
-    private static void getAllFavoiteMovie(Context context){
-        final MovieDatabase movieDatabase = MovieDatabase.getInstance(context);
-
-        new AsyncTask<Void, Void, List<FavoriteMovieTableModel>>() {
+    private void setUpViewModel(){
+        Log.d(TAG, "setUpViewModel");
+        MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        movieViewModel.getFavMovieListLiveData().observe(this, new Observer<List<FavoriteMovieTableModel>>() {
             @Override
-            protected List<FavoriteMovieTableModel> doInBackground(Void... voids) {
-                return movieDatabase.favoriteMovieDao().getFavoriteMovieList();
-            }
-
-            @Override
-            protected void onPostExecute(List<FavoriteMovieTableModel> favoriteMovieTableModels) {
-                super.onPostExecute(favoriteMovieTableModels);
+            public void onChanged(@Nullable List<FavoriteMovieTableModel> favoriteMovieTableModels) {
+                Log.d(TAG,"onChanged: get new list of the fav movie");
                 mFavoriteMovieTableModels = favoriteMovieTableModels;
+                if (mFavoriteMovieTableModels != null && (currentSorting == SORT_ORDER_FAVORITE)){
+                    mMovieListAdapter.setMovieData(mapFavoriteMovieDbModalToMovieModel(mFavoriteMovieTableModels), 1);
+                }
             }
-        }.execute();
+        });
     }
 
     private List<Movie> mapFavoriteMovieDbModalToMovieModel(List<FavoriteMovieTableModel> favoriteMovieTableModels){

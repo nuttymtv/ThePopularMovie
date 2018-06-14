@@ -1,9 +1,9 @@
-package com.example.android.thepopularmovie.Service;
+package com.example.android.thepopularmovie.service;
 
 
-import com.example.android.thepopularmovie.Models.MovieModel.MovieResponse;
-import com.example.android.thepopularmovie.Models.MovieReviewModel.MovieReviewResponse;
-import com.example.android.thepopularmovie.Models.MovieTrailerModel.MovieTrailerResponse;
+import com.example.android.thepopularmovie.models.movie.MovieResponse;
+import com.example.android.thepopularmovie.models.movie_review.MovieReviewResponse;
+import com.example.android.thepopularmovie.models.movie_trailer.MovieTrailerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

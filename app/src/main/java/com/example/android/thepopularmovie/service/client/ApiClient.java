@@ -1,4 +1,4 @@
-package com.example.android.thepopularmovie.Service.Client;
+package com.example.android.thepopularmovie.service.client;
 
 import java.io.IOException;
 

@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.android.thepopularmovie.Models.MovieModel.Movie;
-import com.example.android.thepopularmovie.Utils.ApiUtils;
+import com.example.android.thepopularmovie.models.movie.Movie;
+import com.example.android.thepopularmovie.utils.ApiUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

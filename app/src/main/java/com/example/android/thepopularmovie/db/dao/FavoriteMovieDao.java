@@ -1,19 +1,19 @@
-package com.example.android.thepopularmovie.Db.Dao;
+package com.example.android.thepopularmovie.db.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.example.android.thepopularmovie.Db.Table.FavoriteMovieTableModel;
+import com.example.android.thepopularmovie.db.table.FavoriteMovieTableModel;
 
 import java.util.List;
 
 @Dao
 public interface FavoriteMovieDao {
     @Query("SELECT * FROM FavoriteMovieTableModel")
-    List<FavoriteMovieTableModel> getFavoriteMovieList();
+    LiveData<List<FavoriteMovieTableModel>> getFavoriteMovieList();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insetFavoriteMovie(FavoriteMovieTableModel favoriteMovie);

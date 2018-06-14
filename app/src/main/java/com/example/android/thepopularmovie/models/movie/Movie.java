@@ -1,9 +1,9 @@
-package com.example.android.thepopularmovie.Models.MovieModel;
+package com.example.android.thepopularmovie.models.movie;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.android.thepopularmovie.Db.Table.FavoriteMovieTableModel;
+import com.example.android.thepopularmovie.db.table.FavoriteMovieTableModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

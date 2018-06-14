@@ -1,13 +1,11 @@
-package com.example.android.thepopularmovie.Db.Table;
+package com.example.android.thepopularmovie.db.table;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.example.android.thepopularmovie.Models.MovieModel.Movie;
-
-import java.util.List;
+import com.example.android.thepopularmovie.models.movie.Movie;
 
 @Entity
 public class FavoriteMovieTableModel {

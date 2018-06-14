@@ -1,12 +1,12 @@
-package com.example.android.thepopularmovie.Db;
+package com.example.android.thepopularmovie.db;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.example.android.thepopularmovie.Db.Dao.FavoriteMovieDao;
-import com.example.android.thepopularmovie.Db.Table.FavoriteMovieTableModel;
+import com.example.android.thepopularmovie.db.dao.FavoriteMovieDao;
+import com.example.android.thepopularmovie.db.table.FavoriteMovieTableModel;
 
 
 @Database(entities = {FavoriteMovieTableModel.class},version = 1,exportSchema = false)
